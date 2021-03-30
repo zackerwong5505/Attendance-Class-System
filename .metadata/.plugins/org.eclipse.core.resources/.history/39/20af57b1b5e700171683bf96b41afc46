@@ -1,0 +1,42 @@
+package data;
+
+public class TempStudentRecord {
+	private String studentID;
+	private String name;
+	private String password;
+	private String photo;
+	private int point;
+	
+	public int setPoint(int a){
+		this.point = a;
+		return point;
+	}
+	public int getPoint(){
+		return point;
+	}
+	public TempStudentRecord(String i, String n, String pw,String ph) {
+		studentID = i;
+		name = n;
+		password = pw;
+		photo = ph;
+		point = getPoint();
+	}
+	
+	public String getStudentID() {
+		return studentID;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	
+	
+	
+}

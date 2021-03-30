@@ -1,0 +1,103 @@
+package ui;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import logic.Lecturer;
+import logic.University;
+import logic.Student;
+import logic.Tutorclass;
+
+public class StudentMainMenu extends JFrame implements ActionListener {
+	private JButton btnViewAllClass = new JButton("View All Classes");
+	private JButton btnStudentInfo = new JButton("Student Information");
+	
+	private JButton btnBack;
+	private University uni;
+	private Student student;
+	private MainScreen prevScreen;
+	private Tutorclass tClass;
+	
+	
+	public StudentMainMenu(MainScreen prevScreen,University uni, Student student) {
+		this.uni = uni;
+		this.student = student;
+		this.prevScreen=prevScreen;
+		
+		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Student Main Menu");
+		setSize(600, 250);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
+		Container pane = getContentPane();
+		pane.setBackground(Color.white);
+		pane.setLayout(new BorderLayout());
+		
+		JPanel p1 = new JPanel();
+		p1.setLayout(new FlowLayout(FlowLayout.CENTER));
+		p1.add(new JLabel("Welcome back "+student.getName()+"!"));
+		
+		JPanel p2 = new JPanel();
+		p2.setLayout(new GridLayout(3, 1, 10, 10));
+		p2.add(new JLabel("What would you like to do ?"));
+		p2.add(btnViewAllClass);
+		p2.add(btnStudentInfo);
+		
+		btnBack = new JButton("Back"); 
+		
+		JPanel p3 = new JPanel(new GridBagLayout());
+		p3.add(p2);
+		
+		JPanel p4 = new JPanel();
+		p4.setLayout(new FlowLayout(FlowLayout.CENTER));
+		p4.add(btnBack);
+		
+		pane.add(p1, BorderLayout.NORTH);
+		pane.add(p3, BorderLayout.CENTER);
+				
+		pane.add(p4, BorderLayout.SOUTH);
+		
+		btnViewAllClass.addActionListener(this);
+		btnStudentInfo.addActionListener(this);
+		btnBack.addActionListener(this);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		
+		
+		if (obj == btnViewAllClass) {
+			this.setVisible(false);
+			new ViewAllRegClass (this, uni,student);
+		}
+		else if (obj == btnBack) {
+			
+			this.dispose();
+		//	new MainScreen();
+		prevScreen.setVisible(true);
+		}
+		
+		else if (obj == btnStudentInfo) {
+			this.setVisible(false);
+			new StudentInfo (this,student);
+			
+		}
+		
+		
+	}
+}

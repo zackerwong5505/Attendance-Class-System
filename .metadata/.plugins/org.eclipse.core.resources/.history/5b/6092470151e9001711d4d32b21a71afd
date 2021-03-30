@@ -1,0 +1,99 @@
+package ui;
+
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
+
+import logic.University;
+
+public class MainScreen extends JFrame implements ActionListener {
+	private JButton btnStudent = new JButton("Student"); 
+	private JButton btnLecturer = new JButton("Lecturer"); 
+	
+	private University uni = new University("Bandar Baru Bangi Public Lecture Class");
+	
+	public MainScreen() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("Main Screen");
+		setSize(600, 1200);
+		setLocationRelativeTo(null);
+		setVisible(true);
+		
+		Container pane = getContentPane();
+		pane.setBackground(Color.white);
+		pane.setLayout(new BorderLayout());
+		
+		JPanel p1 = new JPanel();
+		p1.add(new JLabel(uni.getName()));
+		
+		JPanel p3 = new JPanel();
+		JPanel p4 = new JPanel();
+		p3.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+		
+		p4.setLayout(new FlowLayout());
+		p4.add(btnStudent);
+		p4.add(btnLecturer);
+		
+		p3.add(new JLabel("Hi, you are which type of user?"));
+		p3.add(p4);
+		
+		pane.add(p1, BorderLayout.NORTH);
+		pane.add(p3, BorderLayout.SOUTH);
+		
+		JPanel p2 = new JPanel(new GridBagLayout());
+		
+		ImageIcon icon = new ImageIcon("img/clock.jpg");
+		JLabel label = new JLabel(icon);
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 0;
+		p2.add(label,c);
+		
+		JLabel title = new JLabel("Attendance Analyser");
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridwidth = 0;
+		c.gridheight = 0;
+		p2.add(title,c);
+		pane.add(p2, BorderLayout.CENTER);
+		
+		
+		btnStudent.addActionListener(this);
+		btnLecturer.addActionListener(this);
+		
+		
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		Object obj = e.getSource();
+		
+		if (obj == btnStudent) {
+			this.setVisible(false);
+			new StudentLoginForm(this, uni);
+			// not implemented in this stage
+		}
+		
+		else if (obj == btnLecturer){
+			this.setVisible(false);
+			new LecturerLoginForm (this, uni);
+			
+		}
+
+
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		MainScreen frame = new MainScreen();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setTitle("Main Screen");
+		frame.setSize(600, 450);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(true);
+		
+	}
+
+}
+
